@@ -15,11 +15,12 @@ images = []
 measurements = []
 for line in lines:
     source_path = line[0]
-    filename = source_path.split('/')[-1]
-    current_path = '..data/IMG/' + filenameP
+    filename = source_path.split('\\')[-1]
+    current_path = './data/IMG/' + filename
     image = cv2.imread(current_path)
     images.append(image)
     measurements.append(float(line[3]))
+    break
 
 X_train = np.array(images)
 y_train = np.array(measurements)
