@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import shutil
 
+
 import numpy as np
 import socketio
 import eventlet
@@ -20,6 +21,7 @@ sio = socketio.Server()
 app = Flask(__name__)
 model = None
 prev_image_array = None
+
 
 
 class SimplePIController:
@@ -44,7 +46,7 @@ class SimplePIController:
 
 
 controller = SimplePIController(0.1, 0.002)
-set_speed = 9
+set_speed = 16
 controller.set_desired(set_speed)
 
 
