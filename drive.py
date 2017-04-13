@@ -3,8 +3,8 @@ import base64
 from datetime import datetime
 import os
 import shutil
-
-
+import matplotlib.pyplot as plt
+import pickle
 import numpy as np
 import socketio
 import eventlet
@@ -21,8 +21,22 @@ sio = socketio.Server()
 app = Flask(__name__)
 model = None
 prev_image_array = None
+#order = pickle.load(open(order.p', 'rb'))
+def retrieve_steering_angle(neurons, width = (-0.75,0.75)):
+    neurons = neurons[0,:]+0.5
+    r = neurons.max()-neurons.min()
+    neurons = neurons/r
+    n = neurons.shape[0]
+    means = np.linspace(width[0],width[1], n)
+    plt.bar(means,neurons, width = 0.1, align='center')
+    output = np.dot(means,neurons)/np.sum(neurons)
+    return output
 
-
+def shuffle_backward(l, order):
+    l_out = [0] * len(l)
+    for i, j in enumerate(order):
+        l_out[j] = l[i]
+    return np.array(l_out)
 
 class SimplePIController:
     def __init__(self, Kp, Ki):
@@ -63,10 +77,11 @@ def telemetry(sid, data):
         imgString = data["image"]
         image = Image.open(BytesIO(base64.b64decode(imgString)))
         image_array = np.asarray(image)
-        steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
-
+        prediction = model.predict(image_array[None, :, :, :], batch_size=1)
+        #unshuffled_prediction = shuffle_backward(prediction, order)
+        #steering_angle = retrieve_steering_angle(unshuffled_prediction)
+        steering_angle = float(prediction)
         throttle = controller.update(float(speed))
-
         print(steering_angle, throttle)
         send_control(steering_angle, throttle)
 
