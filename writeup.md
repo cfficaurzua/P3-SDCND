@@ -20,6 +20,7 @@
 | writeup_report.md|  summarizing the results|
 |visualization.py| code needed to visualize the activations |
 |drive.bat | bash file to run the drive script automatically |
+| video.mp4   | final result driving on track 1 autonomously |
 
 ## Introduction
 The aim of this project is to provide a model that can drive by itself, maneuvering the steering wheel with only camera inputs, which is known as end to end learning, to obtain the trained model it is necessary to collect a lot of data from the simulator provided by Udacity.
