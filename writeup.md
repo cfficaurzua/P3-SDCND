@@ -8,15 +8,7 @@
 [image3]: ./examples/activations_nvidia_model.PNG "Activations nvidia"
 [image4]: ./examples/Activations_final_model.PNG "Activations final model"
 
-
-
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
-
-My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network
-* writeup_report.md or writeup_report.pdf summarizing the results
+[TOC]
 
 ## Project structure
 
@@ -26,6 +18,8 @@ My project includes the following files:
 | drive.py | for driving the car in autonomous mode|
 | model.h5 | containing a trained convolution neural network|
 | writeup_report.md|  summarizing the results|
+|visualization.py| code needed to visualize the activations |
+|drive.bat | bash file to run the drive script automatically |
 
 ## Introduction
 The aim of this project is to provide a model that can drive by itself, maneuvering the steering wheel with only camera inputs, which is known as end to end learning, to obtain the trained model it is necessary to collect a lot of data from the simulator provided by Udacity.
@@ -49,13 +43,13 @@ After driving around the tracks for hours improving the technique I recorder alm
 
 ## Balance samples
 
-[image1]
+![alt text][image1]
 
 The data retrieved by the simulator was naturallly unbalanced as shown above, there were many samples with steering angles near zero, and few samples of closed curves near  -1 and 1, so I created a function that selects randomly samples untill no more than a threshold per angle has been completed.
 
 After balancing the data distribution changes as shown below
 
-[image2]
+![alt text][image2]
 
 ## Recovering Data
 
@@ -128,7 +122,7 @@ To perform the analysis I insert as an input a collection of images with more or
 
 In the following image is shown the activations for every angle estimulation for the nvidia model
 
-[image2]
+![alt text][image3]
 
 My first thought to fix this issue was to reduce the number of neurons from 10 to 2, and from 50 to 4 respectively, but this will make the model less robust and dependent of only a few neurons.
 
@@ -142,7 +136,7 @@ Lastly my third and final effort was to implement L2 Regularization, this overca
 
 With L2 regularization a more consistent activations were obtained as shown below
 
-[image2]
+![alt text][image4]
 
 
 ## Final Approach
