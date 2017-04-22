@@ -1,4 +1,3 @@
-
 ## import necessary libraries
 import csv
 import cv2
